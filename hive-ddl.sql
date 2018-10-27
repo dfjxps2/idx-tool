@@ -84,10 +84,9 @@ Data_Col_Id     STRING         COMMENT '数据集编号'
 ,Data_Cycle     STRING         COMMENT '数据周期'
 ,Region_Cd      STRING         COMMENT '区域代码'
 ,Dim_Cd         STRING         COMMENT '维度代码'
-,Ind_Id         STRING         COMMENT '指标代码'
 ,Ind_Val        DECIMAL(18,2)  COMMENT '指标值'
 ) COMMENT '基础数据表'
-PARTITIONED BY (Subject string)
+PARTITIONED BY (Subject string, Ind_Id string)
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\001'
 LINES TERMINATED BY '\n'
