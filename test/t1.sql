@@ -28,20 +28,19 @@ use indexdb;
 
 truncate table b04_base_data_tbl;
 
--- from (select * from t1) as src_tbl
--- insert into table b04_base_data_tbl partition (subject='subject01', ind_id)
--- select 'DS0106140000', '06', data_year, zone_cd, dim_cd, year_last_year_pct, concat(dim_cd, '02')
--- insert into table b04_base_data_tbl partition (subject='subject01', ind_id)
--- select 'DS0106140000', '06', data_year, zone_cd, dim_cd, value, concat(dim_cd, '01')
--- ;
-
-
-from (
-select * from t1
-) as src_tbl
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id)
-select 'DS0103010000', '06', data_year, zone_cd, dim_cd, value, dim_cd
+from (select * from t1) as src_tbl
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id)
+select 'DS0106140000', data_year, zone_cd, dim_cd, value, concat(dim_cd, '01')
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id)
+select 'DS0106140000', data_year, zone_cd, dim_cd, year_last_year_pct, concat(dim_cd, '02')
 ;
+
+-- from (
+-- select * from t1
+-- ) as src_tbl
+-- insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id)
+-- select 'DS0103010000', data_year, zone_cd, dim_cd, value, dim_cd
+-- ;
 
 select * from b04_base_data_tbl;
 

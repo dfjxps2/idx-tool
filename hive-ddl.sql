@@ -1,25 +1,25 @@
---hive½¨±íÓï¾ä
+--hiveå»ºè¡¨è¯­å¥
 
---È«Éç»á¹Ì¶¨×Ê²úÍ¶×ÊºÍÔö³¤ËÙ¶ÈÇé¿ö(ÒÚÔª)(1978-µ±Äê)
+--å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„å’Œå¢é•¿é€Ÿåº¦æƒ…å†µ(äº¿å…ƒ)(1978-å½“å¹´)
 create table historydb.h_bj30_stat_c_06_01(
-id                      int                                                         COMMENT 'Ö÷¼üID'
-,stat_year               string                                                     COMMENT 'Í³¼ÆÄê·İ'
-,data_year               string                                                     COMMENT 'Êı¾İÄê·İ'
-,investment_fixed_assets_whole_society   string                                     COMMENT 'È«Éç»á¹Ì¶¨×Ê²úÍ¶×Ê'
-,wsfai_urban_fixed_assets_investment     string                                     COMMENT 'È«Éç»á¹Ì¶¨×Ê²úÍ¶×Ê-³ÇÕò¹Ì¶¨×Ê²úÍ¶×Ê'
-,wsfai_ufai_real_estate_development_investment   string                             COMMENT 'È«Éç»á¹Ì¶¨×Ê²úÍ¶×Ê-³ÇÕò¹Ì¶¨×Ê²úÍ¶×Ê-·¿µØ²ú¿ª·¢Í¶×Ê'
-,tsifa_rural_investment_fixed_assets     string                                     COMMENT 'È«Éç»á¹Ì¶¨×Ê²úÍ¶×Ê-Å©´å¹Ì¶¨×Ê²úÍ¶×Ê'
-,tsifa_infrastructure_investment string                                             COMMENT 'È«Éç»á¹Ì¶¨×Ê²úÍ¶×Ê-»ù´¡ÉèÊ©Í¶×Ê'
-,investment_fixed_assets_construction_and_installation   string                     COMMENT 'È«Éç»á¹Ì¶¨×Ê²úÍ¶×Ê-½¨Öş°²×°Í¶×Ê'
-,newly_added_fixed_assets        string                                             COMMENT 'ĞÂÔö¹Ì¶¨×Ê²ú'
-,fixed_asset_investment_whole_society_increased_over_previous_yea        string     COMMENT 'È«Éç»á¹Ì¶¨×Ê²úÍ¶×Ê±ÈÉÏÄêÔö³¤'
-,investment_fixed_assets_urban_areas_increased_from_previous_year        string     COMMENT 'È«Éç»á¹Ì¶¨×Ê²úÍ¶×Ê±ÈÉÏÄêÔö³¤-³ÇÕò¹Ì¶¨×Ê²úÍ¶×Ê'
-,real_estate_development_investment      string                                     COMMENT '·¿µØ²ú¿ª·¢Í¶×Ê'
-,investment_rural_fixed_assets   string                                             COMMENT 'Å©´å¹Ì¶¨×Ê²úÍ¶×Ê'
-,infrastructure_investment       string                                             COMMENT '»ù´¡ÉèÊ©Í¶×Ê'
-,construction_and_installation_investment        string                             COMMENT '½¨Öş°²×°Í¶×Ê'
-,jdrx_update_time        bigint                                                     COMMENT '»ã¾ÛÊ±¼ä'
-) COMMENT 'È«Éç»á¹Ì¶¨×Ê²úÍ¶×ÊºÍÔö³¤ËÙ¶ÈÇé¿ö(ÒÚÔª)(1978-µ±Äê)'
+id                      int                                                         COMMENT 'ä¸»é”®ID'
+,stat_year               string                                                     COMMENT 'ç»Ÿè®¡å¹´ä»½'
+,data_year               string                                                     COMMENT 'æ•°æ®å¹´ä»½'
+,investment_fixed_assets_whole_society   string                                     COMMENT 'å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„'
+,wsfai_urban_fixed_assets_investment     string                                     COMMENT 'å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„-åŸé•‡å›ºå®šèµ„äº§æŠ•èµ„'
+,wsfai_ufai_real_estate_development_investment   string                             COMMENT 'å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„-åŸé•‡å›ºå®šèµ„äº§æŠ•èµ„-æˆ¿åœ°äº§å¼€å‘æŠ•èµ„'
+,tsifa_rural_investment_fixed_assets     string                                     COMMENT 'å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„-å†œæ‘å›ºå®šèµ„äº§æŠ•èµ„'
+,tsifa_infrastructure_investment string                                             COMMENT 'å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„-åŸºç¡€è®¾æ–½æŠ•èµ„'
+,investment_fixed_assets_construction_and_installation   string                     COMMENT 'å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„-å»ºç­‘å®‰è£…æŠ•èµ„'
+,newly_added_fixed_assets        string                                             COMMENT 'æ–°å¢å›ºå®šèµ„äº§'
+,fixed_asset_investment_whole_society_increased_over_previous_yea        string     COMMENT 'å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„æ¯”ä¸Šå¹´å¢é•¿'
+,investment_fixed_assets_urban_areas_increased_from_previous_year        string     COMMENT 'å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„æ¯”ä¸Šå¹´å¢é•¿-åŸé•‡å›ºå®šèµ„äº§æŠ•èµ„'
+,real_estate_development_investment      string                                     COMMENT 'æˆ¿åœ°äº§å¼€å‘æŠ•èµ„'
+,investment_rural_fixed_assets   string                                             COMMENT 'å†œæ‘å›ºå®šèµ„äº§æŠ•èµ„'
+,infrastructure_investment       string                                             COMMENT 'åŸºç¡€è®¾æ–½æŠ•èµ„'
+,construction_and_installation_investment        string                             COMMENT 'å»ºç­‘å®‰è£…æŠ•èµ„'
+,jdrx_update_time        bigint                                                     COMMENT 'æ±‡èšæ—¶é—´'
+) COMMENT 'å…¨ç¤¾ä¼šå›ºå®šèµ„äº§æŠ•èµ„å’Œå¢é•¿é€Ÿåº¦æƒ…å†µ(äº¿å…ƒ)(1978-å½“å¹´)'
 PARTITIONED BY (`access_partition_year` string,  `access_partition_month` string, `access_partition_day` string)
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\001'
@@ -27,31 +27,31 @@ LINES TERMINATED BY '\n'
 STORED AS TEXTFILE;
 
 
---±£ÕÏĞÔ°²¾Ó¹¤³Ì½¨ÉèÇé¿ö(ÒÚÔª¡¢ÍòÆ½·½Ã×)
+--ä¿éšœæ€§å®‰å±…å·¥ç¨‹å»ºè®¾æƒ…å†µ(äº¿å…ƒã€ä¸‡å¹³æ–¹ç±³)
 create table historydb.h_bj30_stat_c_06_14(
-id                      int                      COMMENT 'Ö÷¼üID'
-,stat_year               string                  COMMENT 'Í³¼ÆÄê·İ'
-,data_year               string                  COMMENT 'Êı¾İÄê·İ'
-,item                    string                  COMMENT 'ÏîÄ¿'
-,unit                    string                  COMMENT 'µ¥Î»'
-,value                   string                  COMMENT 'Öµ'
-,year_last_year_pct      string                  COMMENT 'µ±ÄêÎªÈ¥ÄêÕ¼±È'
-,jdrx_update_time        bigint                  COMMENT '»ã¾ÛÊ±¼ä'
-) COMMENT '±£ÕÏĞÔ°²¾Ó¹¤³Ì½¨ÉèÇé¿ö(ÒÚÔª¡¢ÍòÆ½·½Ã×)'
+id                      int                      COMMENT 'ä¸»é”®ID'
+,stat_year               string                  COMMENT 'ç»Ÿè®¡å¹´ä»½'
+,data_year               string                  COMMENT 'æ•°æ®å¹´ä»½'
+,item                    string                  COMMENT 'é¡¹ç›®'
+,unit                    string                  COMMENT 'å•ä½'
+,value                   string                  COMMENT 'å€¼'
+,year_last_year_pct      string                  COMMENT 'å½“å¹´ä¸ºå»å¹´å æ¯”'
+,jdrx_update_time        bigint                  COMMENT 'æ±‡èšæ—¶é—´'
+) COMMENT 'ä¿éšœæ€§å®‰å±…å·¥ç¨‹å»ºè®¾æƒ…å†µ(äº¿å…ƒã€ä¸‡å¹³æ–¹ç±³)'
 PARTITIONED BY (`access_partition_year` string,  `access_partition_month` string, `access_partition_day` string)
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\001'
 LINES TERMINATED BY '\n'
 STORED AS TEXTFILE;
 
---Áù´ÎÈË¿ÚÆÕ²éÈË¿Ú»ù±¾Çé¿ö
+--å…­æ¬¡äººå£æ™®æŸ¥äººå£åŸºæœ¬æƒ…å†µ
 create table historydb.h_bj30_stat_c_03_01(
-stat_year               string                   COMMENT 'Äê¼ø'
-,data_year               string                   COMMENT 'Äê·İ'
-,item                    string                   COMMENT 'ÏîÄ¿'
-,unit                    string                   COMMENT 'µ¥Î»'
-,value                   string                   COMMENT 'Öµ'
-) COMMENT 'Áù´ÎÈË¿ÚÆÕ²éÈË¿Ú»ù±¾Çé¿ö'
+stat_year               string                   COMMENT 'å¹´é‰´'
+,data_year               string                   COMMENT 'å¹´ä»½'
+,item                    string                   COMMENT 'é¡¹ç›®'
+,unit                    string                   COMMENT 'å•ä½'
+,value                   string                   COMMENT 'å€¼'
+) COMMENT 'å…­æ¬¡äººå£æ™®æŸ¥äººå£åŸºæœ¬æƒ…å†µ'
 PARTITIONED BY (`access_partition_year` string,  `access_partition_month` string, `access_partition_day` string)
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\001'
@@ -59,15 +59,15 @@ LINES TERMINATED BY '\n'
 STORED AS TEXTFILE;
 
 
---·ÖÎöÎ¬¶ÈÓ³Éä±í
+--åˆ†æç»´åº¦æ˜ å°„è¡¨
 CREATE TABLE basedb.B99_ADIM_MAP
 (
-Data_Col_Src_Tbl      STRING  COMMENT 'Êı¾İ¼¯À´Ô´±í'
-,Adim_Id              INT  COMMENT '·ÖÎöÎ¬¶È±àºÅ'
-,Src_Adim_Nm          STRING COMMENT 'Ô´·ÖÎöÎ¬¶ÈÃû³Æ'
-,Target_Adim_Nm       STRING COMMENT 'Ä¿±ê·ÖÎöÎ¬¶ÈÃû³Æ'
-,Adim_Ind_Id          STRING COMMENT '·ÖÎöÎ¬¶ÈÖ¸±ê±àºÅ'
-) COMMENT '·ÖÎöÎ¬¶ÈÓ³Éä±í'
+Data_Col_Src_Tbl      STRING  COMMENT 'æ•°æ®é›†æ¥æºè¡¨'
+,Adim_Id              INT  COMMENT 'åˆ†æç»´åº¦ç¼–å·'
+,Src_Adim_Nm          STRING COMMENT 'æºåˆ†æç»´åº¦åç§°'
+,Target_Adim_Nm       STRING COMMENT 'ç›®æ ‡åˆ†æç»´åº¦åç§°'
+,Adim_Ind_Id          STRING COMMENT 'åˆ†æç»´åº¦æŒ‡æ ‡ç¼–å·'
+) COMMENT 'åˆ†æç»´åº¦æ˜ å°„è¡¨'
 PARTITIONED BY (Subject string)
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\001'
@@ -76,17 +76,16 @@ STORED AS TEXTFILE;
 
 
 
---½Ó¿ÚÊı¾İ¼¯±í
+--æ¥å£æ•°æ®é›†è¡¨
 CREATE TABLE indexdb.B04_BASE_DATA_TBL
 (
-Data_Col_Id     STRING         COMMENT 'Êı¾İ¼¯±àºÅ'
-,Data_Col_Catg  STRING         COMMENT 'Êı¾İ¼¯Àà±ğ'
-,Data_Cycle     STRING         COMMENT 'Êı¾İÖÜÆÚ'
-,Region_Cd      STRING         COMMENT 'ÇøÓò´úÂë'
-,Dim_Cd         STRING         COMMENT 'Î¬¶È´úÂë'
-,Ind_Val        DECIMAL(18,2)  COMMENT 'Ö¸±êÖµ'
-) COMMENT '»ù´¡Êı¾İ±í'
-PARTITIONED BY (Subject string, Ind_Id string)
+Data_Col_Id     STRING         COMMENT 'æ•°æ®é›†ç¼–å·'
+,Data_Cycle     STRING         COMMENT 'æ•°æ®å‘¨æœŸ'
+,Region_Cd      STRING         COMMENT 'åŒºåŸŸä»£ç '
+,Dim_Cd         STRING         COMMENT 'ç»´åº¦ä»£ç '
+,Ind_Val        DECIMAL(18,2)  COMMENT 'æŒ‡æ ‡å€¼'
+) COMMENT 'åŸºç¡€æ•°æ®è¡¨'
+PARTITIONED BY (Data_Col_Catg string, Ind_Id string)
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\001'
 LINES TERMINATED BY '\n'

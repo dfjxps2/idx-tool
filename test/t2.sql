@@ -37,30 +37,30 @@ use indexdb;
 truncate table b04_base_data_tbl;
 
 from (select * from t2 ) as src_tbl
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010001')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, investment_fixed_assets_whole_society
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010002')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, wsfai_urban_fixed_assets_investment
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010003')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, wsfai_ufai_real_estate_development_investment
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010004')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, tsifa_rural_investment_fixed_assets
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010005')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, tsifa_infrastructure_investment
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010006')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, investment_fixed_assets_construction_and_installation
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010007')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, newly_added_fixed_assets
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010008')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, fixed_asset_investment_whole_society_increased_over_previous_yea
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010009')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, investment_fixed_assets_urban_areas_increased_from_previous_year
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010010')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, real_estate_development_investment
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010011')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, investment_rural_fixed_assets
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010012')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, infrastructure_investment
-insert into table b04_base_data_tbl partition (subject='subject01', ind_id='I0106010013')
-select 'DS0106010000', '06', data_year, zone_cd, dim_cd, construction_and_installation_investment
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010001')
+select 'DS0106010000', data_year, zone_cd, dim_cd, investment_fixed_assets_whole_society
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010002')
+select 'DS0106010000', data_year, zone_cd, dim_cd, wsfai_urban_fixed_assets_investment
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010003')
+select 'DS0106010000', data_year, zone_cd, dim_cd, wsfai_ufai_real_estate_development_investment
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010004')
+select 'DS0106010000', data_year, zone_cd, dim_cd, tsifa_rural_investment_fixed_assets
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010005')
+select 'DS0106010000', data_year, zone_cd, dim_cd, tsifa_infrastructure_investment
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010006')
+select 'DS0106010000', data_year, zone_cd, dim_cd, investment_fixed_assets_construction_and_installation
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010007')
+select 'DS0106010000', data_year, zone_cd, dim_cd, newly_added_fixed_assets
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010008')
+select 'DS0106010000', data_year, zone_cd, dim_cd, fixed_asset_investment_whole_society_increased_over_previous_yea
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010009')
+select 'DS0106010000', data_year, zone_cd, dim_cd, investment_fixed_assets_urban_areas_increased_from_previous_year
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010010')
+select 'DS0106010000', data_year, zone_cd, dim_cd, real_estate_development_investment
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010011')
+select 'DS0106010000', data_year, zone_cd, dim_cd, investment_rural_fixed_assets
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010012')
+select 'DS0106010000', data_year, zone_cd, dim_cd, infrastructure_investment
+insert into table indexdb.b04_base_data_tbl partition (data_col_catg='06', ind_id='I0106010013')
+select 'DS0106010000', data_year, zone_cd, dim_cd, construction_and_installation_investment
 ;
