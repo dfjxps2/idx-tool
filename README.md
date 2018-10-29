@@ -1,6 +1,6 @@
 # 北京市大数据平台及领导驾驶舱项目指标数据加载脚本生成工具
 ## 安装与配置
-- 下载[idx-tool工具包](https://github.com/dfjxps2/idx-tool)。
+- 下载[idx-tool工具包](https://github.com/dfjxps2/idx-tool/archive/master.zip)。
 - 将下载的工具包解压，假设解压路径为\<idx-tool\>。
 - 在一个可以访问的MySQL数据库服务器上创建名为idxcfg的数据库，默认字符集使用UTF8。
 - 执行\<idx-tool\>/idxcfg.sql在idxcfg数据库中创建idx-tool所需的配置表，并导入样本配置数据。
