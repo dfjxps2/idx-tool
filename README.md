@@ -1,10 +1,10 @@
 # 北京市大数据平台及领导驾驶舱项目指标数据加载脚本生成工具
 ## 安装与配置
 - 下载[idx-tool工具包](https://github.com/dfjxps2/idx-tool)。
-- 将下载的工具包解压，假设解压路径为<idx-tool>。
+- 将下载的工具包解压，假设解压路径为\<idx-tool\>。
 - 在一个可以访问的MySQL数据库服务器上创建名为idxcfg的数据库，默认字符集使用UTF8。
-- 执行<idx-tool>/idxcfg.sql在idxcfg数据库中创建idx-tool所需的配置表，并导入样本配置数据。
-- 编辑<idx-tool>/idx-tool.ini文件，设置所需的参数，参数说明如下：
+- 执行\<idx-tool\>/idxcfg.sql在idxcfg数据库中创建idx-tool所需的配置表，并导入样本配置数据。
+- 编辑\<idx-tool\>/idx-tool.ini文件，设置所需的参数，参数说明如下：
 ``` ini
 [idx-tool]
 idx_dbname=indexdb              # 指标数据表所在数据库（hive）的名称
@@ -17,14 +17,14 @@ dbpasswd=root                   # 配置数据库用户口令
 ```
 ## 生成脚本
 - Linux环境<br>
-在<idx-tool>目录下，执行：
+在\<idx-tool\>目录下，执行：
 ``` shell
 source venv-linux/bin/activate
 python idx-script-gen.py
 ```
 可以在参数script_dir所指向的目录下看到生成的脚本文件。
 - Windows环境<br>
-打开命令行窗口，在<idx-tool>目录下，执行：
+打开命令行窗口，在\<idx-tool\>目录下，执行：
 ``` bat
 venv\scripts\activate.bat
 python idx-script-gen.py
