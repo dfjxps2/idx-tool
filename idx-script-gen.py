@@ -8,7 +8,6 @@ import configparser
 conn = None
 idx_dbname = None
 idx_tablename = None
-idx_subject = None
 
 
 def get_data_collection_def():
@@ -174,7 +173,6 @@ if __name__ == '__main__':
     try:
         idx_dbname = config.get('idx-tool', 'idx_dbname')
         idx_tablename = config.get('idx-tool', 'idx_tablename')
-        idx_subject = config.get('idx-tool', 'idx_subject')
         script_dir = config.get('idx-tool', 'script_dir', fallback='.')
     except configparser.NoOptionError:
         logging.error('Required configuration is not found.')
