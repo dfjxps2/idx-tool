@@ -46,10 +46,10 @@ def gen_script_for_alg_1(dc_def):
 
     idx_fields = list(filter(lambda x: x['Ind_Id'] is not None and x['Ind_Id'] != '', dc_field_defs))
 
-    script = '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;')
+    script = '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;\n\r')
 
     for idx_field in idx_fields:
-        script += "insert into table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id='{ind_id}')\n".format(
+        script += "insert overwrite table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id='{ind_id}')\n".format(
             dbname=idx_dbname,
             tablename=idx_tablename,
             data_col_catg=dc_def['Data_Col_Catg'],
@@ -84,9 +84,9 @@ def gen_script_for_alg_2(dc_def):
              '\nSET hive.exec.max.dynamic.partitions=100000;' \
              '\nSET hive.exec.max.dynamic.partitions.pernode=100000;'
 
-    script += '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;')
+    script += '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;\n\r')
 
-    script += "insert into table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id)\n".format(
+    script += "insert overwrite table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id)\n".format(
         dbname=idx_dbname,
         tablename=idx_tablename,
         data_col_catg=dc_def['Data_Col_Catg'])
@@ -122,10 +122,10 @@ def gen_script_for_alg_3(dc_def):
              '\nSET hive.exec.max.dynamic.partitions=100000;' \
              '\nSET hive.exec.max.dynamic.partitions.pernode=100000;'
 
-    script += '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;')
+    script += '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;\n\r')
 
     for idx_field in idx_fields:
-        script += "insert into table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id)\n".format(
+        script += "insert overwrite table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id)\n".format(
             dbname=idx_dbname,
             tablename=idx_tablename,
             data_col_catg=dc_def['Data_Col_Catg'])
