@@ -108,7 +108,7 @@ def gen_script_for_alg_2(dc_def):
     )
 
     script += ';\n'
-    logging.debug('Script is >>>>>>\n{}<<<<<<<\n'.format(script))
+    logging.debug('Script is >>>>>>\n' + script + '<<<<<<<\n')
     return script
 
 
@@ -152,7 +152,7 @@ def gen_script_for_alg_3(dc_def):
         )
 
     script += ';\n'
-    logging.debug('Script is >>>>>>\n{}<<<<<<<\n'.format(script))
+    logging.debug('Script is >>>>>>\n' + script + '<<<<<<<\n')
     return script
 
 
