@@ -5,7 +5,8 @@ import mysql.connector
 import configparser
 import io
 from mysql_utils import MySQLUtils
-
+from operator import itemgetter
+from itertools import groupby
 
 conn = None
 idx_dbname = None
@@ -47,19 +48,31 @@ def gen_script_for_alg_1(dc_def):
     dc_field_defs = get_index_def(dc_def['Data_Col_Id'])
 
     idx_fields = list(filter(lambda x: x['Ind_Id'] is not None and x['Ind_Id'] != '', dc_field_defs))
+    idx_fields.sort(key=itemgetter('Ind_Id'))
+
+    idx_group_lst = groupby(idx_fields, itemgetter('Ind_Id'))
 
     script = '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;\n\r')
 
-    for idx_field in idx_fields:
+    for ind_id, group in idx_group_lst:
+        field_list = list(group)
+
+        if len(field_list) == 1:
+            ind_val = field_list[0]['Fld_En_Nm']
+        else:
+            ind_val = 'coalesce({}, 0)'.format(field_list[0]['Fld_En_Nm'])
+            for i in range(1, len(field_list)):
+                ind_val += '+coalesce({}, 0)'.format(field_list[i]['Fld_En_Nm'])
+
         script += "insert overwrite table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id='{ind_id}')\n".format(
             dbname=idx_dbname,
             tablename=idx_tablename,
             data_col_catg=dc_def['Data_Col_Catg'],
-            ind_id=idx_field['Ind_Id'])
+            ind_id=ind_id)
 
         script += "select '{data_col_id}', {data_cycle}, " \
                   "{region_cd}, {dim_cd}, {ind_val}\n".format(
-            data_col_id=idx_field['Data_Col_Id'],
+            data_col_id=dc_def['Data_Col_Id'],
             data_cycle=list(filter(
                 lambda x: x['Iba_Fld_Nm'] == 'data_cycle',
                 dc_field_defs))[0]['Fld_En_Nm'],
@@ -69,7 +82,7 @@ def gen_script_for_alg_1(dc_def):
             dim_cd=list(
                 filter(lambda x: x['Iba_Fld_Nm'] == 'dim_cd',
                        dc_field_defs))[0]['Fld_En_Nm'],
-            ind_val=idx_field['Fld_En_Nm']
+            ind_val=ind_val
         )
 
     script += ';\n'
@@ -83,8 +96,8 @@ def gen_script_for_alg_2(dc_def):
 
     script = '\nset hive.exec.dynamic.partition=true;' \
              '\nset hive.exec.dynamic.partition.mode=nonstrict;' \
-             '\nSET hive.exec.max.dynamic.partitions=100000;' \
-             '\nSET hive.exec.max.dynamic.partitions.pernode=100000;'
+             '\nset hive.exec.max.dynamic.partitions=100000;' \
+             '\nset hive.exec.max.dynamic.partitions.pernode=100000;'
 
     script += '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;\n\r')
 
@@ -121,8 +134,8 @@ def gen_script_for_alg_3(dc_def):
 
     script = '\nset hive.exec.dynamic.partition=true;' \
              '\nset hive.exec.dynamic.partition.mode=nonstrict;' \
-             '\nSET hive.exec.max.dynamic.partitions=100000;' \
-             '\nSET hive.exec.max.dynamic.partitions.pernode=100000;'
+             '\nset hive.exec.max.dynamic.partitions=100000;' \
+             '\nset hive.exec.max.dynamic.partitions.pernode=100000;'
 
     script += '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;\n\r')
 
