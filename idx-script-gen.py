@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 import os
 import logging
 import mysql.connector
+import configparser
+import io
 from mysql_utils import MySQLUtils
 
-import configparser
 
 conn = None
 idx_dbname = None
@@ -71,7 +73,7 @@ def gen_script_for_alg_1(dc_def):
         )
 
     script += ';\n'
-    logging.debug('Script is >>>>>>\n{}<<<<<<<\n'.format(script))
+    logging.debug('Script is >>>>>>\n' + script + '<<<<<<<\n')
     return script
 
 
@@ -102,7 +104,7 @@ def gen_script_for_alg_2(dc_def):
             dc_field_defs))[0]['Fld_En_Nm'],
         dim_cd=list(filter(lambda x: x['Iba_Fld_Nm'] == 'dim_cd', dc_field_defs))[0]['Fld_En_Nm'],
         ind_val='value',
-        ind_id=list(filter(lambda x: x['Iba_Fld_Nm'] == 'dim_cd', dc_field_defs))[0]['Fld_En_Nm']
+        ind_id=list(filter(lambda x: x['Iba_Fld_Nm'] == 'ind_id', dc_field_defs))[0]['Fld_En_Nm']
     )
 
     script += ';\n'
@@ -143,9 +145,9 @@ def gen_script_for_alg_3(dc_def):
                 filter(lambda x: x['Iba_Fld_Nm'] == 'dim_cd',
                        dc_field_defs))[0]['Fld_En_Nm'],
             ind_val=idx_field['Fld_En_Nm'],
-            ind_id="concat({dim_cd}, '{ind_id}')".format(
-                dim_cd=list(filter(lambda x: x['Iba_Fld_Nm'] == 'dim_cd', dc_field_defs))[0]['Fld_En_Nm'],
-                ind_id=idx_field['Ind_Id']
+            ind_id="concat({ind_id_1}, '{ind_id_2}')".format(
+                ind_id_1=list(filter(lambda x: x['Iba_Fld_Nm'] == 'ind_id', dc_field_defs))[0]['Fld_En_Nm'],
+                ind_id_2=idx_field['Ind_Id']
             )
         )
 
@@ -161,6 +163,7 @@ generators = {
 }
 
 if __name__ == '__main__':
+
     logging.basicConfig(filename='idx-tool.log', filemode='w', level=logging.DEBUG,
                         format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
@@ -192,7 +195,7 @@ if __name__ == '__main__':
 
     for dc in data_col_def:
         script = generators[dc['Algor_Type']](dc)
-        f = open(script_dir + os.sep + dc['Data_Col_Id'] + '.sql', 'w')
+        f = io.open(script_dir + os.sep + dc['Data_Col_Id'] + '.sql', 'w', encoding='utf-8')
         f.write(script)
         f.close()
 
