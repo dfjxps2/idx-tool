@@ -220,7 +220,12 @@ if __name__ == '__main__':
             logging.error('Inconsistent configuration found for data collection {}'.format(dc['Data_Col_Id']))
             print("Program failed, please see idx-tool.log for details.")
             exit(-1)
-        f = io.open(script_dir + os.sep + dc['Data_Col_Id'] + '.sql', 'w', encoding='utf-8')
+
+        category_dir = script_dir + os.sep + dc['Data_Col_Catg']
+        if not os.path.exists(category_dir):
+            os.mkdir(category_dir)
+
+        f = io.open(category_dir + os.sep + dc['Data_Col_Id'] + '.sql', 'w', encoding='utf-8')
         f.write(script)
         f.close()
 
