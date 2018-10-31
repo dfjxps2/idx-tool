@@ -79,13 +79,12 @@ STORED AS TEXTFILE;
 --接口数据集表
 CREATE TABLE indexdb.B04_BASE_DATA_TBL
 (
-Data_Col_Id     STRING         COMMENT '数据集编号'
-,Data_Cycle     STRING         COMMENT '数据周期'
+Data_Cycle     STRING         COMMENT '数据周期'
 ,Region_Cd      STRING         COMMENT '区域代码'
 ,Dim_Cd         STRING         COMMENT '维度代码'
 ,Ind_Val        DECIMAL(18,2)  COMMENT '指标值'
-) COMMENT '基础数据表'
-PARTITIONED BY (Data_Col_Catg string, Ind_Id string)
+) COMMENT '基础数据集表'
+PARTITIONED BY (Data_Col_Catg string,Data_Col_Id STRING,Ind_Id String)
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\001'
 LINES TERMINATED BY '\n'

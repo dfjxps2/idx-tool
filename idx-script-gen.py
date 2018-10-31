@@ -64,15 +64,16 @@ def gen_script_for_alg_1(dc_def):
             for i in range(1, len(field_list)):
                 ind_val += '+coalesce({}, 0)'.format(field_list[i]['Fld_En_Nm'])
 
-        script += "insert overwrite table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id='{ind_id}')\n".format(
+        script += "insert overwrite table {dbname}.{tablename} " \
+                  "partition (data_col_catg='{data_col_catg}', data_col_id='{data_col_id}', ind_id='{ind_id}')\n".format(
             dbname=idx_dbname,
             tablename=idx_tablename,
             data_col_catg=dc_def['Data_Col_Catg'],
+            data_col_id=dc_def['Data_Col_Id'],
             ind_id=ind_id)
 
-        script += "select '{data_col_id}', {data_cycle}, " \
+        script += "select {data_cycle}, " \
                   "{region_cd}, {dim_cd}, {ind_val}\n".format(
-            data_col_id=dc_def['Data_Col_Id'],
             data_cycle=list(filter(
                 lambda x: x['Iba_Fld_Nm'] == 'data_cycle',
                 dc_field_defs))[0]['Fld_En_Nm'],
@@ -87,11 +88,13 @@ def gen_script_for_alg_1(dc_def):
 
     script += ';\n'
     logging.debug('Script is >>>>>>\n' + script + '<<<<<<<\n')
+
     return script
 
 
 def gen_script_for_alg_2(dc_def):
     logging.debug('Generating script for {} using algorithm 2'.format(dc_def['Data_Col_Id']))
+
     dc_field_defs = get_index_def(dc_def['Data_Col_Id'])
 
     script = '\nset hive.exec.dynamic.partition=true;' \
@@ -101,14 +104,15 @@ def gen_script_for_alg_2(dc_def):
 
     script += '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;\n\r')
 
-    script += "insert overwrite table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id)\n".format(
+    script += "insert overwrite table {dbname}.{tablename} " \
+              "partition (data_col_catg='{data_col_catg}', data_col_id='{data_col_id}', ind_id)\n".format(
         dbname=idx_dbname,
         tablename=idx_tablename,
-        data_col_catg=dc_def['Data_Col_Catg'])
+        data_col_catg=dc_def['Data_Col_Catg'],
+        data_col_id=dc_def['Data_Col_Id'])
 
-    script += "select '{data_col_id}', {data_cycle}, " \
+    script += "select {data_cycle}, " \
               "{region_cd}, {dim_cd}, {ind_val}, {ind_id}\n".format(
-        data_col_id=dc_def['Data_Col_Id'],
         data_cycle=list(filter(
             lambda x: x['Iba_Fld_Nm'] == 'data_cycle',
             dc_field_defs))[0]['Fld_En_Nm'],
@@ -140,14 +144,15 @@ def gen_script_for_alg_3(dc_def):
     script += '\nfrom (%s) as src_tbl\n' % dc_def['Data_Colsql'].rstrip(' ;\n\r')
 
     for idx_field in idx_fields:
-        script += "insert overwrite table {dbname}.{tablename} partition (data_col_catg='{data_col_catg}', ind_id)\n".format(
+        script += "insert overwrite table {dbname}.{tablename} " \
+                  "partition (data_col_catg='{data_col_catg}', data_col_id='{data_col_id}', ind_id)\n".format(
             dbname=idx_dbname,
             tablename=idx_tablename,
-            data_col_catg=dc_def['Data_Col_Catg'])
+            data_col_catg=dc_def['Data_Col_Catg'],
+            data_col_id=dc_def['Data_Col_Id'])
 
-        script += "select '{data_col_id}', {data_cycle}, " \
+        script += "select {data_cycle}, " \
                   "{region_cd}, {dim_cd}, {ind_val}, {ind_id}\n".format(
-            data_col_id=idx_field['Data_Col_Id'],
             data_cycle=list(filter(
                 lambda x: x['Iba_Fld_Nm'] == 'data_cycle',
                 dc_field_defs))[0]['Fld_En_Nm'],
@@ -186,6 +191,7 @@ if __name__ == '__main__':
 
     config.read('idx-tool.ini')
 
+    script_dir = ''
     try:
         idx_dbname = config.get('idx-tool', 'idx_dbname')
         idx_tablename = config.get('idx-tool', 'idx_tablename')
@@ -207,7 +213,13 @@ if __name__ == '__main__':
     data_col_def = get_data_collection_def()
 
     for dc in data_col_def:
-        script = generators[dc['Algor_Type']](dc)
+        script = ''
+        try:
+            script = generators[dc['Algor_Type']](dc)
+        except IndexError:
+            logging.error('Inconsistent configuration found for data collection {}'.format(dc['Data_Col_Id']))
+            print("Program failed, please see idx-tool.log for details.")
+            exit(-1)
         f = io.open(script_dir + os.sep + dc['Data_Col_Id'] + '.sql', 'w', encoding='utf-8')
         f.write(script)
         f.close()
