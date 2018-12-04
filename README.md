@@ -16,18 +16,27 @@ dbuser=root                     # 存放配置信息的数据库服务器用户�
 dbpasswd=root                   # 存放配置信息的数据库用户口令
 ```
 ## 生成脚本
-- Linux（Ubuntu）环境<br>
+### Linux（Ubuntu）环境
+- 生成指标表加载脚本<br>
 在\<idx-tool\>目录下，执行：
 ``` shell
 source venv-linux/bin/activate
 python idx-script-gen.py
 ```
-可以在参数script_dir所指向的目录下看到生成的脚本文件。
-- Windows 10 x64 环境<br>
+- 生成接口数据集市加载脚本<br>
+在\<idx-tool\>目录下，执行：
+``` shell
+source venv-linux/bin/activate
+python dm-script-gen.py
+```
+
+程序执行完毕后，可以在参数script_dir所指向的目录下看到生成的脚本文件。
+### Windows 10 x64 环境
 1. 安装Python 3.7.1 amd64版本。
 2. 打开命令行窗口，在\<idx-tool\>目录下，执行：
 ``` bat
 venv\scripts\python idx-script-gen.py
+venv\scripts\python dm-script-gen.py
 ```
 可以在参数script_dir所指向的目录下看到生成的脚本文件。
 
