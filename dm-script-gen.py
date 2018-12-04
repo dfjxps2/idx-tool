@@ -52,7 +52,7 @@ def gen_dm_loading_script(dm_table_nm, dm_table_mapping):
         sql += '\n(SELECT data_col_id, data_col_catg, data_cycle, region_cd, dim_cd'
         idx_list = src_tbl['ind_list'].split(',')
         for idx in idx_list:
-            sql += '\nSUM(CASE WHEN ind_id = \'{idx}\' THEN ind_val ELSE 0 END) AS {idx}'.format(idx=idx)
+            sql += '\n,SUM(CASE WHEN ind_id = \'{idx}\' THEN ind_val ELSE 0 END) AS {idx}'.format(idx=idx)
 
         sql += "\nFROM {}.{}" \
                "\nWHERE".format(idx_dbname, idx_tablename)
@@ -61,10 +61,7 @@ def gen_dm_loading_script(dm_table_nm, dm_table_mapping):
                "\nAND data_col_catg = '{}'".format(src_tbl['data_col_id'], src_tbl['data_col_catg'])
 
         if src_tbl['data_cycle'] != '' and src_tbl['data_cycle'] is not None:
-            if src_tbl['data_cycle'][0] == '$':
-                sql += "\nAND data_cycle = {}".format(src_tbl['data_cycle'])
-            else:
-                sql += "\nAND data_cycle = '{}'".format(src_tbl['data_cycle'])
+            sql += "\nAND data_cycle = '{}'".format(src_tbl['data_cycle'])
 
         if src_tbl['region_cd'] != '' and src_tbl['region_cd'] is not None:
             sql += "\nAND region_cd = '{}'".format(src_tbl['region_cd'])
@@ -86,7 +83,7 @@ def gen_dm_loading_script(dm_table_nm, dm_table_mapping):
 
         last_src_tbl_nm = src_tbl['src_tbl_nm']
 
-        sql += "\nINSERT OVERWRITE TABLE " + dm_table_nm + " PARTITION (data_dt=${data_dt}) VALUES ("
+    sql += "\nINSERT OVERWRITE TABLE " + dm_table_nm + " PARTITION (data_dt='${data_dt}') SELECT"
 
     first_column = True
     for col_def in dm_column_def:
@@ -97,7 +94,7 @@ def gen_dm_loading_script(dm_table_nm, dm_table_mapping):
             sql += "\n,"
         sql += format(col_def['tgt_col_expr'] + ' -- ' + col_def['tgt_col_nm_cn'])
 
-    sql += "\n);"
+    sql += "\n;"
 
     return sql
 
