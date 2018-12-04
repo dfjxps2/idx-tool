@@ -212,16 +212,28 @@ if __name__ == '__main__':
 
     data_col_def = get_data_collection_def()
 
+    failed_dc = []
     for dc in data_col_def:
         script = ''
         try:
             script = generators[dc['Algor_Type']](dc)
         except IndexError:
             logging.error('Inconsistent configuration found for data collection {}'.format(dc['Data_Col_Id']))
-            print("Program failed, please see idx-tool.log for details.")
-            exit(-1)
-        f = io.open(script_dir + os.sep + dc['Data_Col_Id'] + '.sql', 'w', encoding='utf-8')
+            failed_dc.append(dc['Data_Col_Id'])
+            continue
+
+        category_dir = script_dir + os.sep + dc['Data_Col_Catg']
+        if not os.path.exists(category_dir):
+            os.mkdir(category_dir)
+
+        f = io.open(category_dir + os.sep + dc['Data_Col_Id'] + '.sql', 'w', encoding='utf-8')
         f.write(script)
         f.close()
 
     conn.close()
+
+    if len(failed_dc) > 0:
+        print("\nFailed to generate script for following data collections, please see idx-tool.log for details.")
+        for i in range(len(failed_dc)):
+            print('{}: {}'.format(i+1, failed_dc[i]))
+        exit(-1)
