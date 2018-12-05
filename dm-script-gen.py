@@ -60,7 +60,7 @@ def gen_dm_loading_script(dm_table_nm, dm_table_mapping):
         sql += "\ndata_col_id = '{}'" \
                "\nAND data_col_catg = '{}'".format(src_tbl['data_col_id'], src_tbl['data_col_catg'])
 
-        if src_tbl['data_cycle'] != '' and src_tbl['data_cycle'] is not None:
+        if src_tbl['data_cycle'] != '' and src_tbl['data_cycle'] is not None and src_tbl['data_cycle'][0] != '$':
             sql += "\nAND data_cycle = '{}'".format(src_tbl['data_cycle'])
 
         if src_tbl['region_cd'] != '' and src_tbl['region_cd'] is not None:
@@ -78,6 +78,15 @@ def gen_dm_loading_script(dm_table_nm, dm_table_mapping):
             sql += "\nON {last_src_tbl}.region_cd = {this_src_tbl}.region_cd " \
                    "\nAND {last_src_tbl}.dim_cd = {this_src_tbl}.dim_cd".format(last_src_tbl=last_src_tbl_nm,
                                                                                 this_src_tbl=src_tbl['src_tbl_nm'])
+            if src_tbl['data_cycle'] == '${LASTYEAR}':
+                sql += "\nAND CAST({last_src_tbl}.data_cycle AS INT) - CAST({this_src_tbl}.data_cycle AS INT) = 1".format(
+                    last_src_tbl=last_src_tbl_nm, this_src_tbl=src_tbl['src_tbl_nm']
+                )
+            elif src_tbl['data_cycle'] == '${LASTMONTH}':
+                sql += "\nAND (CAST(SUBSTR({last_src_tbl}.data_cycle, 1, 4) AS INT) * 12 + CAST(SUBSTR({last_src_tbl}.data_cycle,5,2) AS INT)) -" \
+                       "(CAST(SUBSTR({this_src_tbl}.data_cycle, 1, 4) AS INT) * 12 + CAST(SUBSTR({this_src_tbl}.data_cycle,5,2) AS INT)) = 1".format(
+                    last_src_tbl=last_src_tbl_nm, this_src_tbl=src_tbl['src_tbl_nm']
+                )
         else:
             first_table = False
 
