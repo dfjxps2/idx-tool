@@ -101,7 +101,7 @@ def gen_dm_loading_script(dm_table_nm, dm_table_mapping):
             first_column = False
         else:
             sql += "\n,"
-        sql += format(col_def['tgt_col_expr'] + ' -- ' + col_def['tgt_col_nm_cn'])
+        sql += col_def['tgt_col_expr'] + ' -- ' + col_def['tgt_col_nm_cn']
 
     sql += "\n;"
 
