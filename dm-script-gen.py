@@ -20,15 +20,15 @@ def get_dm_table_def():
 
     cursor.close()
 
-    rs.sort(key=itemgetter('tgt_tbl_nm'))
+    rs.sort(key=itemgetter('tgt_tbl_nm', 'tgt_tbl_part'))
 
-    return groupby(rs, itemgetter('tgt_tbl_nm'))
+    return groupby(rs, itemgetter('tgt_tbl_nm', 'tgt_tbl_part'))
 
 
-def get_dm_column_def(dm_table_nm):
+def get_dm_column_def(dm_table):
     cursor = conn.cursor()
 
-    sql = "select * from idxcfg.b05_dm_col where tgt_tbl_nm = '{}' order by tgt_col_num".format(dm_table_nm)
+    sql = "select * from idxcfg.b05_dm_col where tgt_tbl_nm = '{}' and tgt_tbl_part = {} order by tgt_col_num".format(dm_table[0], dm_table[1])
 
     cursor.execute(sql)
 
@@ -39,8 +39,8 @@ def get_dm_column_def(dm_table_nm):
     return rs
 
 
-def gen_dm_loading_script(dm_table_nm, dm_table_mapping):
-    dm_column_def = get_dm_column_def(dm_table_nm)
+def gen_dm_loading_script(dm_table, dm_table_mapping):
+    dm_column_def = get_dm_column_def(dm_table)
 
     sql = 'FROM'
     first_table = True
@@ -92,7 +92,7 @@ def gen_dm_loading_script(dm_table_nm, dm_table_mapping):
 
         last_src_tbl_nm = src_tbl['src_tbl_nm']
 
-    sql += "\nINSERT OVERWRITE TABLE " + dm_table_nm + " PARTITION (data_dt='${data_dt}') SELECT"
+    sql += "\nINSERT INTO TABLE " + dm_table[0] + " PARTITION (data_dt='${data_dt}') SELECT"
 
     first_column = True
     for col_def in dm_column_def:
@@ -143,6 +143,6 @@ if __name__ == '__main__':
     for tgt_table, group in dm_table_def:
         tbl_mapping_list = list(group)
         script = gen_dm_loading_script(tgt_table, tbl_mapping_list)
-        f = io.open(script_dir + os.sep + tgt_table + '.sql', 'w', encoding='utf-8')
+        f = io.open(script_dir + os.sep + tgt_table[0] + '.' + str(tgt_table[1]) + '.sql', 'w', encoding='utf-8')
         f.write(script)
         f.close()
