@@ -79,12 +79,12 @@ def gen_dm_loading_script(dm_table, dm_table_mapping):
                    "\nAND {last_src_tbl}.dim_cd = {this_src_tbl}.dim_cd".format(last_src_tbl=last_src_tbl_nm,
                                                                                 this_src_tbl=src_tbl['src_tbl_nm'])
             if src_tbl['data_cycle'] == '${LASTYEAR}':
-                sql += "\nAND CAST({last_src_tbl}.data_cycle AS INT) - CAST({this_src_tbl}.data_cycle AS INT) = 1".format(
+                sql += "\nAND CAST({last_src_tbl}.data_cycle AS INT) = CAST({this_src_tbl}.data_cycle AS INT) + 1".format(
                     last_src_tbl=last_src_tbl_nm, this_src_tbl=src_tbl['src_tbl_nm']
                 )
             elif src_tbl['data_cycle'] == '${LASTMONTH}':
-                sql += "\nAND (CAST(SUBSTR({last_src_tbl}.data_cycle,1,4) AS INT) * 12 + CAST(SUBSTR({last_src_tbl}.data_cycle,5,2) AS INT)) -" \
-                       "(CAST(SUBSTR({this_src_tbl}.data_cycle,1,4) AS INT) * 12 + CAST(SUBSTR({this_src_tbl}.data_cycle,5,2) AS INT)) = 1".format(
+                sql += "\nAND (CAST(SUBSTR({last_src_tbl}.data_cycle,1,4) AS INT) * 12 + CAST(SUBSTR({last_src_tbl}.data_cycle,5,2) AS INT)) =" \
+                       "(CAST(SUBSTR({this_src_tbl}.data_cycle,1,4) AS INT) * 12 + CAST(SUBSTR({this_src_tbl}.data_cycle,5,2) AS INT)) + 1".format(
                     last_src_tbl=last_src_tbl_nm, this_src_tbl=src_tbl['src_tbl_nm']
                 )
         else:
